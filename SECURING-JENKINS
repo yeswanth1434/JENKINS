@@ -1,0 +1,15 @@
+################### SECURING JENKINS #################
+1.username & passwords are stored in jenkins by deflaut
+*dashboard - manage jenkins - configure global security - security realm
+
+2.new user created in jenkins by admin
+*dashboard - manage jenkins - manage users - creat new user
+
+3.matrix based security
+*dashboard - manage jenkins - configure global security - authorization
+*using this we can configure granual level of permission to jenkins user
+
+4.Project-based Matrix Authorization Strategy
+*NOT GIVE TICKS TO JOB
+*dashboard - manage jenkins - configure global security - authorization
+*this is extension of matrix based security & offers job level access
