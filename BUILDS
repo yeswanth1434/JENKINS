@@ -17,3 +17,16 @@
  1.take the jennkins url:/github-weebhook/ like  "http://13.59.163.237:8080/github-webhook/"
  2.content type:application/json
  3.dashboard - Configuration - pipeline (Pipeline script from SCM) - give detals
+ 
+ 
+ ################# REMOVE UNWANTED BUILDS ###############
+*ever build occupies disk space
+*j dashboard - project - cofigure - discard old builds
+(it will work only click build now & refresh the page)
+
+
+
+################# BUILD EXECUTORS ###################
+*dashboard - manage jenkins - cofigure system - executors
+*build executors represents no of jobs jenkins can build at a time conceruntely
+*simply it's increase will not benfit the underline server(cpu) also support it.
