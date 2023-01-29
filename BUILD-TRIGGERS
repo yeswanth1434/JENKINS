@@ -1,0 +1,19 @@
+################ BUILD TRIGGERS ####################
+
+*j dashboard - project - configure - build triggers
+
+********* build periodically
+*take cron expression & accordingly it tiggers a job
+* google "crontab.guru"
+
+********* poll scm 
+*simillar to build periodically but this checks for new commit then only it tigger the job
+ 1.dashboard - Configuration - pipeline (Pipeline script from SCM) - give detals
+
+********* github weebhook 
+*tigger a job when commit is pushed to git remote repository.
+*github repository - settings - webhooks - add
+*provide details
+ 1.take the jennkins url:/github-weebhook/ like  "http://13.59.163.237:8080/github-webhook/"
+ 2.content type:application/json
+ 3.dashboard - Configuration - pipeline (Pipeline script from SCM) - give detals
