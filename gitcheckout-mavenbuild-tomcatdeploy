@@ -1,0 +1,102 @@
+##################### JENKINS PIPELINE ##############################
+
+*pipeline can be written in two syntaxes
+ 1.scripted pipeline (legacy) (node {})
+ 2.declarative pipeline (morden and quite often used) (pipeline {})
+
+
+*******************************************git checkout*****************************************************
+*Dashboard - job - cofigure - Pipeline - pipeline Syntax - sample step(git:GIT) give details copy the result
+
+        stage('git checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'git-creds', url: 'https://github.com/yeswanth1434/hello'
+            }
+        }
+
+*******************************************maven build*****************************************************
+*Dashboard - job - cofigure - Pipeline - pipeline Syntax - sample step(sh:shell script) - enter(mvn clean package)
+
+         stage('maven build') {
+            steps {
+                sh 'mvn clean package'
+            }
+         }
+
+*******************************************tomcat*****************************************************
+*dashboard - mjenkins - mplugins - search(SSH Agent) - download
+*dashboard - mjenkins - mcrediantials - Stores scoped to Jenkins click (global) - add tomcat credits
+*Dashboard - job - cofigure - Pipeline - pipeline Syntax - sample step(sshagent:SSH Agent) - give tomcat credientials
+       
+         stage('tomcat deploy') {
+            steps {
+                sshagent(['tomcat-creds']) {
+                    sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.6.93:/opt/tomcat9/webapps"
+                    sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/shutdown.sh"
+                    sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/startup.sh"
+                }
+            }
+        }
+
+************** sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.6.93:/opt/tomcat9/webapps"
+
+Details for above line
+
+*("SCP" COMMAND USE FOR TO COPY FILES FROM ONE HOST TO ANOTHER HOST)
+
+*(scp -o StrictHostKeyChecking=no) this command used for slove "HOST KEY VERIFICATION FAILED"
+  Dashboard - mjenkins - mplugins - search(SSH Agent) - click on sshagent? to see above command
+
+*(target/*.war) means in runnning maven time war files are put inside in target* and hello.war file created
+
+*(ec2-user@:172.31.6.93) tomcat private ID only must give
+
+*(/opt/tomcat9/webapps) 'target/*.war' and 'ec2-user' files are copied under the /opt/tomcat9/webapps.
+
+************* sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/shutdown.sh"
+
+Details for above line
+*ssh ec2-user@:tomcat private ip adress /<command like /opt/tomcat9/bin/shutdown.sh>
+*THIS IS TO RUN COMMAND ON REMOTE SERVER OR HOST
+
+*************  sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/startup.sh"
+
+Details for above line
+*ssh ec2-user@:tomcat private ip adress /<command like /opt/tomcat9/bin/startup.sh>
+*THIS IS TO RUN COMMAND ON REMOTE SERVER OR HOST
+
+
+
+
+
+code:
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('git checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'git-creds', url: 'https://github.com/yeswanth1434/hello'
+            }
+        }
+        stage('maven package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('tomcat deploy') {
+            steps {
+                sshagent(['tomcat-creds']) {
+                    sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.6.93:/opt/tomcat9/webapps"
+                    sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/shutdown.sh"
+                    sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/startup.sh"
+                }
+            }
+        }
+    }
+}
