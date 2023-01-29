@@ -6,3 +6,16 @@
 *"sudo yum install java-17-amazon-corretto-devel"
 *"sudo yum install jenkins"
 *"sudo systemctl start jenkins"
+
+#################### CONFIGURE JENKINS ###################
+*instance public ip:8080 in google
+*"sudo cat /var/lib/jenkins/secrets/initialAdminPassword" copy this and paste in command promt
+*copy the alphabetanumeric and paste
+*"sudo systemctl enable jenkins" (this command use is when instance is rebooting automatically start jenkins)
+
+############## JENKINS CREDINTIALS ######################
+*"sudo yum install git"
+*"git clone <project url>"
+
+*dashboard - project - cofiguration - source code management - git - add credintials
+
