@@ -1,0 +1,38 @@
+perameterized pipeline,names should be env type string?
+prameter value can pass like dev,test,prod?
+write three stages like dev,test,prod?
+if env entered as dev run dev stage,env entered as prod run prod stage.
+
+pipeline {
+    agent any
+    parameters {
+        string defaultValue: 'Dev', description: '\'choose environment\'', name: 'env'
+    }
+
+    stages {
+        stage('Dev') {
+            when {
+                expression {prams.env=="Dev"}
+            }
+            steps {
+                echo 'Deploy to Dev Environment'
+            }
+        }
+        stage('Test') {
+            when {
+                expression {prams.env=="Test"}
+            }
+            steps {
+                echo 'Deploy to Test Environment'
+            }
+        }
+        stage('Prod') {
+            when {
+                expression {prams.env=="prod"}
+            }
+            steps {
+                echo 'Deploy to prod Environment'
+            }
+        }
+    }
+}
