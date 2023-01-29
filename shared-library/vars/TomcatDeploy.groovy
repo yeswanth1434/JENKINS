@@ -10,12 +10,16 @@ def call (ip,creds,user) {
 
 IN JENKINS PIPELINE :
 
-stage('tomcat deploy') {
-  steps {
-    sshagent(['tomcat-creds']) {
-      sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.6.93:/opt/tomcat9/webapps"
-      sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/shutdown.sh"
-      sh "ssh ec2-user@172.31.6.93 /opt/tomcat9/bin/startup.sh"
+@Library('sharelibs') _
+
+pipeline {
+    agent any
+
+    stages {
+        stage('tomcat deploy') {
+            steps {
+                TomcatDeploy('172.31.6.93','tomcat-creds','ec2-user')
+            }
+        }
     }
-  }
 }
