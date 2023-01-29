@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    parameters {
+        string defaultValue: 'Dev', description: '\'choose environment\'', name: 'env'
+    }
+
+    stages {
+        stage('Dev') {
+            when {
+                expression {prams.env=="Dev"}
+            }
+            steps {
+                echo 'Deploy to Dev Environment'
+            }
+        }
+        stage('Test') {
+            when {
+                expression {prams.env=="Test"}
+            }
+            steps {
+                echo 'Deploy to Test Environment'
+            }
+        }
+        stage('Prod') {
+            when {
+                expression {prams.env=="Prod"}
+            }
+            steps {
+                echo 'Deploy to prod Environment'
+            }
+        }
+        stage('Run selenium test') {
+            when {
+                expression {prams.env=="Dev"}
+            }
+            steps {
+                echo 'calling selenium-test'
+            }
+        }
+    }
+    post {
+        success {
+            echo "this job is success"
+        }
+        failure {
+            echo "this job is failurew"
+        }
+    }
+}
