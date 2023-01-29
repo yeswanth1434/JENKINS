@@ -1,0 +1,26 @@
+################# PRALLEL TASK IN PIPELINE #################
+*this two run parllel       *this does not run parallel(because maven tells does not have pom.xml)
+ git - maven                         git    
+ git - sonar scaner                  maven
+ 
+ 
+ pipeline {
+    agent any
+
+    stages {
+        stage('task one and task two') {
+            parallel{
+                stage ("task one") {
+                    steps {
+                        echo "task one"
+                    }
+                }
+                stage ("task two") {
+                    steps {
+                        echo "task two"
+                    }
+                }
+            }
+        }
+    }
+}
