@@ -1,0 +1,8 @@
+#################### INSTALL JENKINS #####################
+*launch ec2 instance
+*google search "jenkins.io" click on "CenyOS/Fedore/RedHat"
+*"sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo"
+*"sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key"
+*"sudo yum install java-17-amazon-corretto-devel"
+*"sudo yum install jenkins"
+*"sudo systemctl start jenkins"
