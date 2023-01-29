@@ -1,0 +1,15 @@
+############################# JENKINS MASTER SLAVE ############################################
+*we go master slave architecture in two situations
+1.used for scaling jenkins that is by add more slaves(agent) jenkins run more jobs concurently
+2.sometimes we have jobs thas has to be tested on different OS,this is achive using master/slave
+
+***DEMO
+*launch sever
+*j dashboard - mjenkiins - Manage nodes and clouds - new node - name - Number of executors - 
+ Remote root directory(/var/lib/jenkins) - labels(xyz) (labels are used to map jobs with that slave,supose lable(xyz) if run job in slave then we provide label as 'xyz')
+ - launch method(launch agent via SSH) - host (slave instance private ip) - add new credientials - Host Key Verification Strategy(Non verifying Verification Strategy) - svae
+*open slave instance
+1.sudo yum install java-17-amazon-corretto-devel
+2.sudo mkdir /opt/jenkins
+3.ls -ltr /opt
+4.sudo chown -R ec2-user:ec2-user /opt/jenkins (to change jenkins)       
